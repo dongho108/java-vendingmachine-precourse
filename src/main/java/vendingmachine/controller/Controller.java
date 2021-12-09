@@ -15,6 +15,7 @@ public class Controller {
 		InputView.requestMachineCoin();
 		Machine machine = new Machine();
 		setMachine(machine);
+		OutputView.printMachineCoin(machine.getCoins());
 	}
 
 	private void setMachine(Machine machine) {
