@@ -20,4 +20,8 @@ public class MachineService {
 	public void addInputCoins(Machine machine, int amount) {
 		machine.addInputCoins(amount);
 	}
+
+	public Boolean soldOut(Machine machine) {
+		return machine.isSoldOutAllItems();
+	}
 }

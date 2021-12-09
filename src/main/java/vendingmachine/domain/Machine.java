@@ -1,6 +1,8 @@
 package vendingmachine.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Machine {
@@ -8,6 +10,7 @@ public class Machine {
 	private final List<Coin> coins = new ArrayList<>();
 	private final List<Item> items = new ArrayList<>();
 	private Integer inputCoins = 0;
+	private Integer minItemPrice = 0;
 
 	public void addCoins(List<Coin> coins) {
 		this.coins.addAll(coins);
@@ -15,10 +18,24 @@ public class Machine {
 
 	public void addItems(List<Item> items) {
 		this.items.addAll(items);
+		setMinItemPrice(items);
 	}
 
 	public void addInputCoins(int amount) {
 		inputCoins += amount;
+	}
+
+	public Boolean isSoldOutAllItems() {
+		for (Item item : items) {
+			if (!item.isSoldOut()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private void setMinItemPrice(List<Item> items) {
+		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
 	}
 
 	public Integer getTotalCoinAmount() {
