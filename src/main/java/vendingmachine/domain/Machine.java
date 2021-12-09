@@ -34,8 +34,8 @@ public class Machine {
 		return true;
 	}
 
-	private void setMinItemPrice(List<Item> items) {
-		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
+	public List<Coin> getCoins() {
+		return coins;
 	}
 
 	public Integer getTotalCoinAmount() {
@@ -46,6 +46,11 @@ public class Machine {
 		return result;
 	}
 
+	private void setMinItemPrice(List<Item> items) {
+		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
+	}
+
+	// TODO: 제출 전 삭제
 	public void printCoins() {
 		int coin_500 = 0;
 		int coin_100 = 0;

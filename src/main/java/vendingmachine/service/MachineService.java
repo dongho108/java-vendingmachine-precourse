@@ -24,4 +24,8 @@ public class MachineService {
 	public Boolean soldOut(Machine machine) {
 		return machine.isSoldOutAllItems();
 	}
+
+	public List<Coin> getRestCoin(Machine machine) {
+		return machine.getCoins();
+	}
 }
