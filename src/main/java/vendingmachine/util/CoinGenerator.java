@@ -8,7 +8,8 @@ import vendingmachine.domain.Coin;
 
 public class CoinGenerator {
 
-	public static List<Coin> generate(int price) {
+	public static List<Coin> generate(int price) throws IllegalArgumentException{
+		Validator.validatePossibleCoin(price);
 		List<Coin> coinList = new ArrayList<>();
 		List<Integer> numbers = getNumbers();
 		generateCoin(price, coinList, numbers);
