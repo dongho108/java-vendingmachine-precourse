@@ -8,8 +8,10 @@ import vendingmachine.domain.Machine;
 import vendingmachine.util.CoinGenerator;
 
 public class MachineService {
+	CoinGenerator coinGenerator = new CoinGenerator();
+
 	public void addCoins(Machine machine, int amount) {
-		List<Coin> coinList = CoinGenerator.generate(amount);
+		List<Coin> coinList = coinGenerator.generate(amount);
 		machine.addCoins(coinList);
 	}
 
