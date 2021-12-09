@@ -7,6 +7,7 @@ public class Machine {
 
 	private final List<Coin> coins = new ArrayList<>();
 	private final List<Item> items = new ArrayList<>();
+	private Integer inputCoins = 0;
 
 	public void addCoins(List<Coin> coins) {
 		this.coins.addAll(coins);
@@ -14,6 +15,10 @@ public class Machine {
 
 	public void addItems(List<Item> items) {
 		this.items.addAll(items);
+	}
+
+	public void addInputCoins(int amount) {
+		inputCoins += amount;
 	}
 
 	public Integer getTotalCoinAmount() {
