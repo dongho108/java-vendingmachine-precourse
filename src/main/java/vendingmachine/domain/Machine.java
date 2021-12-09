@@ -6,9 +6,14 @@ import java.util.List;
 public class Machine {
 
 	private final List<Coin> coins = new ArrayList<>();
+	private final List<Item> items = new ArrayList<>();
 
 	public void addCoins(List<Coin> coins) {
 		this.coins.addAll(coins);
+	}
+
+	public void addItems(List<Item> items) {
+		this.items.addAll(items);
 	}
 
 	public Integer getTotalCoinAmount() {
