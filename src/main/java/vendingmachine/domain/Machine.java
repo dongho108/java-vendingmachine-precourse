@@ -47,7 +47,7 @@ public class Machine {
 	}
 
 	public Boolean isPossiblePurchase() {
-		return getTotalCoinAmount() >= minItemPrice;
+		return this.inputCoins >= minItemPrice;
 	}
 
 	public boolean isItemIn(String itemName) {
