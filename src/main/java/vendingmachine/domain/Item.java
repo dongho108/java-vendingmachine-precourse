@@ -20,6 +20,9 @@ public class Item {
 	}
 
 	public void reduceQuantity(int quantity) {
+		if (this.quantity < quantity) {
+			throw new IllegalArgumentException("[ERROR] 수량이 부족합니다.");
+		}
 		this.quantity -= quantity;
 	}
 

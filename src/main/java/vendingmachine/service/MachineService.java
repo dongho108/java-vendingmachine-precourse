@@ -32,4 +32,15 @@ public class MachineService {
 	public Boolean isPossiblePurchase(Machine machine) {
 		return machine.isPossiblePurchase();
 	}
+
+	public void purchaseItem(Machine machine, String itemName, int quantity) {
+		if (!machine.isItemIn(itemName)) {
+			throw new IllegalArgumentException("[ERROR] 상품이 없습니다. 다른 상품을 선택해주세요.");
+		}
+		Item item = machine.getItem(itemName);
+		if (!machine.isPossiblePurchaseItem(item)) {
+			throw new IllegalArgumentException("[ERROR] 투입 금액이 부족합니다. 다른 상품을 선택해 주세요.");
+		}
+		machine.purchaseItem(item, quantity);
+	}
 }

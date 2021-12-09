@@ -50,11 +50,30 @@ public class Machine {
 		return getTotalCoinAmount() >= minItemPrice;
 	}
 
+	public boolean isItemIn(String itemName) {
+		for (Item item : items) {
+			if (item.getName().equals(itemName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Item getItem(String itemName) {
+		for (Item item : items) {
+			if (item.getName().equals(itemName)) {
+				return item;
+			}
+		}
+		return null;
+	}
+
 	private void setMinItemPrice(List<Item> items) {
 		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
 	}
 
 	// TODO: 제출 전 삭제
+
 	public void printCoins() {
 		int coin_500 = 0;
 		int coin_100 = 0;
@@ -76,5 +95,13 @@ public class Machine {
 			}
 		}
 		System.out.println("500 : " + coin_500 + ", 100 : " + coin_100 + ", 50 : " + coin_50 + ", 10 : " + coin_10);
+	}
+
+	public boolean isPossiblePurchaseItem(Item item) {
+		return this.inputCoins >= item.getPrice();
+	}
+
+	public void purchaseItem(Item item, int quantity) {
+		item.reduceQuantity(quantity);
 	}
 }
