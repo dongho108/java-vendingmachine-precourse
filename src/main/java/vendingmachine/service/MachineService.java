@@ -28,4 +28,8 @@ public class MachineService {
 	public List<Coin> getRestCoin(Machine machine) {
 		return machine.getCoins();
 	}
+
+	public Boolean isPossiblePurchase(Machine machine) {
+		return machine.isPossiblePurchase();
+	}
 }

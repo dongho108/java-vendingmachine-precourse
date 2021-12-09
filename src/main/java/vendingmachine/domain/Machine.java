@@ -46,6 +46,10 @@ public class Machine {
 		return result;
 	}
 
+	public Boolean isPossiblePurchase() {
+		return getTotalCoinAmount() >= minItemPrice;
+	}
+
 	private void setMinItemPrice(List<Item> items) {
 		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
 	}
