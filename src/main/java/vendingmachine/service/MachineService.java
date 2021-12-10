@@ -23,10 +23,6 @@ public class MachineService {
 		machine.addInputCoins(amount);
 	}
 
-	public Boolean soldOut(Machine machine) {
-		return machine.isSoldOutAllItems();
-	}
-
 	public List<Coin> getMachineCoin(Machine machine) {
 		return machine.getCoins();
 	}
