@@ -52,4 +52,19 @@ class MachineServiceTest {
 		Assertions.assertThat(1000).isEqualTo(itemList.get(1).getPrice());
 		Assertions.assertThat(10).isEqualTo(itemList.get(1).getQuantity());
 	}
+
+	@Test
+	public void 자판기_상품_정상구매() throws Exception {
+		//given
+		Machine machine = new Machine();
+		machineService.addInputCoins(machine, 2000);
+		List<Item> itemList = new ArrayList<>();
+		itemList.add(new Item("콜라", 1500, 20));
+		itemList.add(new Item("사이다", 1000, 10));
+		machineService.addItem(machine, itemList);
+		//when
+		machineService.purchaseItem(machine, "콜라");
+		//then
+		Assertions.assertThat(machine.getItem("콜라").getQuantity()).isEqualTo(19);
+	}
 }
