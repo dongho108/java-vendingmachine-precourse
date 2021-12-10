@@ -51,7 +51,22 @@ public class Machine {
 	}
 
 	public Boolean isPossiblePurchase() {
-		return this.inputCoins >= minItemPrice;
+		if (checkInputCoins())
+			return false;
+		return checkItemsQuantity();
+	}
+
+	private boolean checkItemsQuantity() {
+		for (Item item : items) {
+			if (item.getQuantity() > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean checkInputCoins() {
+		return inputCoins < minItemPrice;
 	}
 
 	public boolean isItemIn(String itemName) {
