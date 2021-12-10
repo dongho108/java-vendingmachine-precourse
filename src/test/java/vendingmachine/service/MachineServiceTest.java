@@ -20,7 +20,6 @@ class MachineServiceTest {
 	void 자판기_동전생성() {
 		Machine machine = new Machine();
 		machineService.addCoins(machine, 450);
-		machine.printCoins();
 		Assertions.assertThat(450).isEqualTo(machine.getTotalCoinAmount());
 	}
 
