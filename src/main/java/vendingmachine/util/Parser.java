@@ -25,7 +25,8 @@ public class Parser {
 			validator.isInBracket(string);
 			string = string.replace(LEFT_BRACKET, "").replace(RIGHT_BRACKET, "");
 			String[] itemInfo = string.split(COMMA);
-			validator.isItemInformation(itemInfo);
+			validator.isRightItemInformation(itemInfo);
+			validator.isRightItemPrice(convertStringToInt(itemInfo[1]));
 			itemList.add(new Item(itemInfo[0], convertStringToInt(itemInfo[1]), convertStringToInt(itemInfo[2])));
 		}
 		return itemList;

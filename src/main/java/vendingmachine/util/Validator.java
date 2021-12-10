@@ -4,7 +4,6 @@ public class Validator {
 	private static final int MIN_COIN = 10;
 	private static final int MIN_ITEM_VALUE = 100;
 	private static final int STANDARD_DIVISIBLE = 10;
-	private final Parser parser = new Parser();
 
 	public void isPossibleCoin(int price) {
 		if (!checkPossibleCoin(price)) {
@@ -20,15 +19,13 @@ public class Validator {
 		}
 	}
 
-	public void isItemInformation(String[] itemInfo) {
+	public void isRightItemInformation(String[] itemInfo) {
 		validateItemInformationLength(itemInfo);
-		validateItemPrice(itemInfo[1]);
+		isInteger(itemInfo[1]);
 		isInteger(itemInfo[2]);
 	}
 
-	private void validateItemPrice(String secondItemInfo) {
-		isInteger(secondItemInfo);
-		Integer itemPrice = parser.convertStringToInt(secondItemInfo);
+	public void isRightItemPrice(Integer itemPrice) {
 		isOverMinPrice(itemPrice);
 		isDivisible(itemPrice);
 	}
