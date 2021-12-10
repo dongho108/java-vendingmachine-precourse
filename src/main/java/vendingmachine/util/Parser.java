@@ -10,7 +10,7 @@ public class Parser {
 	private static final String LEFT_BRACKET = "[";
 	private static final String RIGHT_BRACKET = "]";
 	private static final String COMMA = ",";
-	private Validator validator = new Validator();
+	private final Validator validator = new Validator();
 
 	public Integer convertStringToInt(String input) {
 		validator.isInteger(input);
