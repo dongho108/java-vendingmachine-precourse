@@ -4,6 +4,9 @@ import java.util.regex.Pattern;
 
 public class Validator {
 	private static final int MIN_COIN = 10;
+	private static final int MIN_ITEM_VALUE = 100;
+	private static final int STANDARD_DIVISIBLE = 10;
+	private final Parser parser = new Parser();
 
 	public void isPossibleCoin(int price) {
 		if (!checkPossibleCoin(price)) {
@@ -22,8 +25,27 @@ public class Validator {
 	public void isItemInformation(String[] itemInfo) {
 		validateItemInformationLength(itemInfo);
 		validateIsEnglishOrKorean(itemInfo[0]);
-		isInteger(itemInfo[1]);
+		validateItemPrice(itemInfo[1]);
 		isInteger(itemInfo[2]);
+	}
+
+	private void validateItemPrice(String secondItemInfo) {
+		isInteger(secondItemInfo);
+		Integer itemPrice = parser.convertStringToInt(secondItemInfo);
+		isOverMinPrice(itemPrice);
+		isDivisible(itemPrice);
+	}
+
+	private void isDivisible(Integer itemPrice) {
+		if (itemPrice % STANDARD_DIVISIBLE != 0) {
+			throw new IllegalArgumentException("[ERROR] 상품 가격은 10원 단위로 나누어떨어져야 합니다.");
+		}
+	}
+
+	private void isOverMinPrice(Integer itemPrice) {
+		if (itemPrice < MIN_ITEM_VALUE) {
+			throw new IllegalArgumentException("[ERROR] 상품 가격은 100원 이상이어야 합니다.");
+		}
 	}
 
 	private void validateItemInformationLength(String[] itemInfo) {
