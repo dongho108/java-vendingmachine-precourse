@@ -16,7 +16,7 @@ class ValidatorTest {
 		//given
 		Machine machine = new Machine();
 		//when
-		assertSimpleTest(() -> assertThatThrownBy(() -> validator.validateInputCoin("a"))
+		assertSimpleTest(() -> assertThatThrownBy(() -> validator.isInteger("a"))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessageContaining(ERROR_MESSAGE));
 		//then

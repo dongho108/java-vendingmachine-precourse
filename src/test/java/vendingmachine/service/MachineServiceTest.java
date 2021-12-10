@@ -3,9 +3,13 @@ package vendingmachine.service;
 import static camp.nextstep.edu.missionutils.test.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import vendingmachine.domain.Item;
 import vendingmachine.domain.Machine;
 
 class MachineServiceTest {
@@ -29,5 +33,23 @@ class MachineServiceTest {
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessageContaining(ERROR_MESSAGE));
 		//then
+	}
+
+	@Test
+	public void 자판기_보유상품_생성() throws Exception {
+		//given
+		Machine machine = new Machine();
+		//when
+		List<Item> itemList = new ArrayList<>();
+		itemList.add(new Item("콜라", 1500, 20));
+		itemList.add(new Item("사이다", 1000, 10));
+		machineService.addItem(machine, itemList);
+		//then
+		Assertions.assertThat("콜라").isEqualTo(itemList.get(0).getName());
+		Assertions.assertThat(1500).isEqualTo(itemList.get(0).getPrice());
+		Assertions.assertThat(20).isEqualTo(itemList.get(0).getQuantity());
+		Assertions.assertThat("사이다").isEqualTo(itemList.get(1).getName());
+		Assertions.assertThat(1000).isEqualTo(itemList.get(1).getPrice());
+		Assertions.assertThat(10).isEqualTo(itemList.get(1).getQuantity());
 	}
 }
