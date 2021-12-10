@@ -1,7 +1,5 @@
 package vendingmachine.util;
 
-import java.util.regex.Pattern;
-
 public class Validator {
 	private static final int MIN_COIN = 10;
 	private static final int MIN_ITEM_VALUE = 100;
@@ -24,7 +22,6 @@ public class Validator {
 
 	public void isItemInformation(String[] itemInfo) {
 		validateItemInformationLength(itemInfo);
-		validateIsEnglishOrKorean(itemInfo[0]);
 		validateItemPrice(itemInfo[1]);
 		isInteger(itemInfo[2]);
 	}
@@ -52,16 +49,6 @@ public class Validator {
 		if (itemInfo.length != 3) {
 			throwIncorrectItemInformationException();
 		}
-	}
-
-	private void validateIsEnglishOrKorean(String input) {
-		if (!isEnglishOrKorean(input)) {
-			throw new IllegalArgumentException("[ERROR] 상품이름은 영어 또는 한국어 또는 숫자로 구성되어야 합니다.");
-		}
-	}
-
-	private boolean isEnglishOrKorean(String input) {
-		return Pattern.matches("^[0-9a-zA-Z가-힣]*$", input);
 	}
 
 	private static boolean checkPossibleCoin(int price) {
