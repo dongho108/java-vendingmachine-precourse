@@ -19,6 +19,10 @@ public class Item {
 		return price;
 	}
 
+	public Integer getQuantity() {
+		return quantity;
+	}
+
 	public void reduceQuantity(int quantity) {
 		if (this.quantity < quantity) {
 			throw new IllegalArgumentException("[ERROR] 수량이 부족합니다.");

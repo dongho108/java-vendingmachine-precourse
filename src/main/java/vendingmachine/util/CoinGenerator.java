@@ -10,7 +10,7 @@ public class CoinGenerator {
 	private final Validator validator = new Validator();
 
 	public List<Coin> generate(int price) throws IllegalArgumentException {
-		validator.validatePossibleCoin(price);
+		validator.isPossibleCoin(price);
 		List<Coin> coinList = new ArrayList<>();
 		List<Integer> numbers = getNumbers();
 		generateCoin(price, coinList, numbers);
