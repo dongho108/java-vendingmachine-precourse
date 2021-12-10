@@ -25,15 +25,6 @@ public class Machine {
 		inputCoins += amount;
 	}
 
-	public Boolean isSoldOutAllItems() {
-		for (Item item : items) {
-			if (!item.isSoldOut()) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public List<Coin> getCoins() {
 		return coins;
 	}
@@ -53,20 +44,7 @@ public class Machine {
 	public Boolean isPossiblePurchase() {
 		if (checkInputCoins())
 			return false;
-		return checkItemsQuantity();
-	}
-
-	private boolean checkItemsQuantity() {
-		for (Item item : items) {
-			if (item.getQuantity() > 0) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean checkInputCoins() {
-		return inputCoins < minItemPrice;
+		return checkItemsSoldOut();
 	}
 
 	public boolean isItemIn(String itemName) {
@@ -87,15 +65,28 @@ public class Machine {
 		return null;
 	}
 
-	private void setMinItemPrice(List<Item> items) {
-		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
-	}
-
 	public boolean isPossiblePurchaseItem(Item item) {
 		return this.inputCoins >= item.getPrice();
 	}
 
 	public void reduceInputCoin(Integer price) {
 		this.inputCoins -= price;
+	}
+
+	private boolean checkItemsSoldOut() {
+		for (Item item : items) {
+			if (!item.isSoldOut()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean checkInputCoins() {
+		return inputCoins < minItemPrice;
+	}
+
+	private void setMinItemPrice(List<Item> items) {
+		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
 	}
 }
