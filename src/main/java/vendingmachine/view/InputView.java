@@ -10,6 +10,7 @@ public class InputView {
 	}
 
 	public static void requestInputCoin() {
+		System.out.println();
 		System.out.println("투입 금액을 입력해 주세요.");
 	}
 
