@@ -15,33 +15,45 @@ public class Controller {
 	private final Parser parser = new Parser();
 
 	public void run() {
-
-		//자판기 객체 생성
 		Machine machine = new Machine();
-
-		// 자판기 보유잔돈 세팅
-		InputView.requestMachineCoin();
 		setMachine(machine);
-		OutputView.printFirstMachineCoin(machine.getCoins());
+		purchaseItemsByUser(machine);
+		printRestInputCoinAndExit(machine);
+	}
 
-		// 자판기 상품세팅
-		InputView.requestMachineItem();
-		machine.addItems(getItemList());
+	private void setMachine(Machine machine) {
+		getUserInputAndSetMachineCoin(machine);
+		setMachineItems(machine);
+		inputCoinsByUser(machine);
+	}
 
-		// 사용자의 동전투입
-		InputView.requestInputCoin();
-		machineService.addInputCoins(machine, getInputCoin());
+	private void printRestInputCoinAndExit(Machine machine) {
+		OutputView.printInputCoin(machineService.getInputCoin(machine));
+		OutputView.printLastMachineCoin(machine.getCoins());
+	}
 
-		// 상품구매
+	private void purchaseItemsByUser(Machine machine) {
 		while (machineService.isPossiblePurchase(machine)) {
 			OutputView.printInputCoin(machineService.getInputCoin(machine));
 			InputView.requestPurchaseItem();
 			purchaseItem(machine);
 		}
+	}
 
-		// 구매종료
-		OutputView.printInputCoin(machineService.getInputCoin(machine));
-		OutputView.printLastMachineCoin(machine.getCoins());
+	private void inputCoinsByUser(Machine machine) {
+		InputView.requestInputCoin();
+		machineService.addInputCoins(machine, getInputCoin());
+	}
+
+	private void setMachineItems(Machine machine) {
+		InputView.requestMachineItem();
+		machine.addItems(getItemList());
+	}
+
+	private void getUserInputAndSetMachineCoin(Machine machine) {
+		InputView.requestMachineCoin();
+		setMachineCoin(machine);
+		OutputView.printFirstMachineCoin(machine.getCoins());
 	}
 
 	private void purchaseItem(Machine machine) {
@@ -71,13 +83,13 @@ public class Controller {
 		}
 	}
 
-	private void setMachine(Machine machine) {
+	private void setMachineCoin(Machine machine) {
 		Integer machineCoin = getMachineCoin();
 		try {
 			machineService.addCoins(machine, machineCoin);
 		} catch (IllegalArgumentException e) {
 			OutputView.printExceptionMessage(e.getMessage());
-			setMachine(machine);
+			setMachineCoin(machine);
 		}
 	}
 
