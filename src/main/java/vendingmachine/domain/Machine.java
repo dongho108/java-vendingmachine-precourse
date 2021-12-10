@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Machine {
-
 	private final List<Coin> coins = new ArrayList<>();
 	private final List<Item> items = new ArrayList<>();
 	private Integer inputCoins = 0;
