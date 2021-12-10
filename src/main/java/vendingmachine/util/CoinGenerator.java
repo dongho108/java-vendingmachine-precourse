@@ -11,13 +11,11 @@ public class CoinGenerator {
 
 	public List<Coin> generate(int price) throws IllegalArgumentException {
 		validator.isPossibleCoin(price);
-		List<Coin> coinList = new ArrayList<>();
-		List<Integer> numbers = getNumbers();
-		generateCoin(price, coinList, numbers);
-		return coinList;
+		return generateCoin(price, getNumbers());
 	}
 
-	private void generateCoin(int price, List<Coin> coinList, List<Integer> numbers) {
+	private List<Coin> generateCoin(int price, List<Integer> numbers) {
+		List<Coin> coinList = new ArrayList<>();
 		while (price > 0) {
 			int RandomCoin = Randoms.pickNumberInList(numbers);
 			if (price < RandomCoin) {
@@ -26,6 +24,7 @@ public class CoinGenerator {
 			coinList.add(Coin.getThisAmountCoin(RandomCoin));
 			price -= RandomCoin;
 		}
+		return coinList;
 	}
 
 	private static List<Integer> getNumbers() {
