@@ -7,11 +7,6 @@ import java.util.Map;
 import vendingmachine.domain.Coin;
 
 public class OutputView {
-	private static final int COIN_500 = 500;
-	private static final int COIN_100 = 100;
-	private static final int COIN_50 = 50;
-	private static final int COIN_10 = 10;
-
 	public static void printExceptionMessage(String message) {
 		System.out.println(message);
 	}
