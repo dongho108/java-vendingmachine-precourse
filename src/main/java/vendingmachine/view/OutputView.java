@@ -16,12 +16,27 @@ public class OutputView {
 		System.out.println(message);
 	}
 
-	public static void printMachineCoin(List<Coin> coinList) {
+	public static void printLastMachineCoin(List<Coin> coinList) {
+		System.out.println("잔돈");
+		Map<Integer, Integer> sortedCoinMap = getSortedCoinMap(coinList);
+		for (Integer integer : sortedCoinMap.keySet()) {
+			if (sortedCoinMap.get(integer) == 0) {
+				continue;
+			}
+			System.out.println(integer + "원 - " + sortedCoinMap.get(integer) + "개");
+		}
+	}
+
+	public static void printFirstMachineCoin(List<Coin> coinList) {
 		System.out.println("자판기가 보유한 동전");
 		Map<Integer, Integer> sortedCoinMap = getSortedCoinMap(coinList);
 		for (Integer integer : sortedCoinMap.keySet()) {
 			System.out.println(integer + "원 - " + sortedCoinMap.get(integer) + "개");
 		}
+	}
+
+	public static void printInputCoin(Integer inputCoin) {
+		System.out.println("투입 금액: " + inputCoin + "원");
 	}
 
 	private static Map<Integer, Integer> getSortedCoinMap(List<Coin> coinList) {
