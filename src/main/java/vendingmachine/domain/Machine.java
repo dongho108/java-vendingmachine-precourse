@@ -46,6 +46,10 @@ public class Machine {
 		return result;
 	}
 
+	public Integer getInputCoins() {
+		return inputCoins;
+	}
+
 	public Boolean isPossiblePurchase() {
 		return this.inputCoins >= minItemPrice;
 	}
@@ -72,36 +76,11 @@ public class Machine {
 		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
 	}
 
-	// TODO: 제출 전 삭제
-
-	public void printCoins() {
-		int coin_500 = 0;
-		int coin_100 = 0;
-		int coin_50 = 0;
-		int coin_10 = 0;
-
-		for (Coin coin : coins) {
-			if (coin == Coin.COIN_500) {
-				coin_500 += 1;
-			}
-			if (coin == Coin.COIN_100) {
-				coin_100 += 1;
-			}
-			if (coin == Coin.COIN_50) {
-				coin_50 += 1;
-			}
-			if (coin == Coin.COIN_10) {
-				coin_10 += 1;
-			}
-		}
-		System.out.println("500 : " + coin_500 + ", 100 : " + coin_100 + ", 50 : " + coin_50 + ", 10 : " + coin_10);
-	}
-
 	public boolean isPossiblePurchaseItem(Item item) {
 		return this.inputCoins >= item.getPrice();
 	}
 
-	public void purchaseItem(Item item, int quantity) {
-		item.reduceQuantity(quantity);
+	public void reduceInputCoin(Integer price) {
+		this.inputCoins -= price;
 	}
 }
