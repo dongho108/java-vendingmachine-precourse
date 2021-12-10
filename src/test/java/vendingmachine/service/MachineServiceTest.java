@@ -67,4 +67,38 @@ class MachineServiceTest {
 		//then
 		Assertions.assertThat(machine.getItem("콜라").getQuantity()).isEqualTo(19);
 	}
+
+	@Test
+	public void 자판기_상품_없는상품입력_예외() throws Exception {
+		//given
+		Machine machine = new Machine();
+		machineService.addInputCoins(machine, 2000);
+		List<Item> itemList = new ArrayList<>();
+		itemList.add(new Item("콜라", 1500, 20));
+		itemList.add(new Item("사이다", 1000, 10));
+		machineService.addItem(machine, itemList);
+		//when
+
+		//then
+		assertSimpleTest(() -> assertThatThrownBy(() -> machineService.purchaseItem(machine, "맥주"))
+			.isInstanceOf(IllegalArgumentException.class)
+			.hasMessageContaining(ERROR_MESSAGE));
+	}
+
+	@Test
+	public void 자판기_상품_수량부족_예외() throws Exception {
+		//given
+		Machine machine = new Machine();
+		machineService.addInputCoins(machine, 2000);
+		List<Item> itemList = new ArrayList<>();
+		itemList.add(new Item("콜라", 1500, 1));
+		itemList.add(new Item("사이다", 1000, 10));
+		machineService.addItem(machine, itemList);
+		//when
+		machineService.purchaseItem(machine, "콜라");
+		//then
+		assertSimpleTest(() -> assertThatThrownBy(() -> machineService.purchaseItem(machine, "콜라"))
+			.isInstanceOf(IllegalArgumentException.class)
+			.hasMessageContaining(ERROR_MESSAGE));
+	}
 }
