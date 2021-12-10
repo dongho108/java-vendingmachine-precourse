@@ -3,7 +3,9 @@ package vendingmachine.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Machine {
 	private final List<Coin> coins = new ArrayList<>();
@@ -24,8 +26,8 @@ public class Machine {
 		inputCoins += amount;
 	}
 
-	public List<Coin> getCoins() {
-		return coins;
+	public Map<Integer, Integer> getCoins() {
+		return Coin.getSortedCoinMap(coins);
 	}
 
 	public Integer getTotalCoinAmount() {
@@ -87,5 +89,31 @@ public class Machine {
 
 	private void setMinItemPrice(List<Item> items) {
 		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
+	}
+
+	public Map<Integer, Integer> getRestInputCoin() {
+		return getReturnCoinMap(inputCoins);
+	}
+
+	private Map<Integer, Integer> getReturnCoinMap(Integer restCoin) {
+		Map<Integer, Integer> coinMap = Coin.getSortedCoinMap(coins);
+		Map<Integer, Integer> returnCoinMap = new LinkedHashMap<>();
+		for (Integer coin : coinMap.keySet()) {
+			setReturnCoinMapByCoin(restCoin, coinMap, returnCoinMap, coin);
+		}
+		return returnCoinMap;
+	}
+
+	private void setReturnCoinMapByCoin(Integer restCoin, Map<Integer, Integer> coinMap,
+		Map<Integer, Integer> returnCoinMap, Integer coin) {
+		while (restCoin >= coin && coinMap.get(coin) > 0) {
+			coinMap.replace(coin, coinMap.get(coin) - 1);
+			restCoin -= coin;
+			if (!returnCoinMap.containsKey(coin)) {
+				returnCoinMap.put(coin, 1);
+				continue;
+			}
+			returnCoinMap.replace(coin, returnCoinMap.get(coin) + 1);
+		}
 	}
 }

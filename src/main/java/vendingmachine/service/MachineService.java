@@ -1,6 +1,7 @@
 package vendingmachine.service;
 
 import java.util.List;
+import java.util.Map;
 
 import vendingmachine.domain.Coin;
 import vendingmachine.domain.Item;
@@ -23,12 +24,16 @@ public class MachineService {
 		machine.addInputCoins(amount);
 	}
 
-	public List<Coin> getMachineCoin(Machine machine) {
+	public Map<Integer, Integer> getMachineCoin(Machine machine) {
 		return machine.getCoins();
 	}
 
 	public Integer getInputCoin(Machine machine) {
 		return machine.getInputCoins();
+	}
+
+	public Map<Integer, Integer> getRestInputCoin(Machine machine) {
+		return machine.getRestInputCoin();
 	}
 
 	public Boolean isPossiblePurchase(Machine machine) {

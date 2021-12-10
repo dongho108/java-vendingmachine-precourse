@@ -29,7 +29,8 @@ public class Controller {
 
 	private void printRestInputCoinAndExit(Machine machine) {
 		OutputView.printInputCoin(machineService.getInputCoin(machine));
-		OutputView.printLastMachineCoin(machine.getCoins());
+		OutputView.printHeadRestMachineCoin();
+		OutputView.printMachineCoin(machineService.getRestInputCoin(machine));
 	}
 
 	private void purchaseItemsByUser(Machine machine) {
@@ -53,7 +54,8 @@ public class Controller {
 	private void getUserInputAndSetMachineCoin(Machine machine) {
 		InputView.requestMachineCoin();
 		setMachineCoin(machine);
-		OutputView.printFirstMachineCoin(machine.getCoins());
+		OutputView.printHeadMachineCoin();
+		OutputView.printMachineCoin(machineService.getMachineCoin(machine));
 	}
 
 	private void purchaseItem(Machine machine) {
