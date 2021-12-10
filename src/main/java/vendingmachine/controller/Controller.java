@@ -30,7 +30,7 @@ public class Controller {
 	private void printRestInputCoinAndExit(Machine machine) {
 		OutputView.printInputCoin(machineService.getInputCoin(machine));
 		OutputView.printHeadRestMachineCoin();
-		OutputView.printMachineCoin(machineService.getRestInputCoin(machine));
+		OutputView.printMachineCoin(machineService.getReturnInputCoin(machine));
 	}
 
 	private void purchaseItemsByUser(Machine machine) {

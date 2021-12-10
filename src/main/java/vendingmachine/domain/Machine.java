@@ -91,7 +91,7 @@ public class Machine {
 		minItemPrice = Collections.min(items, Comparator.comparing(Item::getPrice)).getPrice();
 	}
 
-	public Map<Integer, Integer> getRestInputCoin() {
+	public Map<Integer, Integer> getReturnInputCoin() {
 		return getReturnCoinMap(inputCoins);
 	}
 
@@ -99,21 +99,30 @@ public class Machine {
 		Map<Integer, Integer> coinMap = Coin.getSortedCoinMap(coins);
 		Map<Integer, Integer> returnCoinMap = new LinkedHashMap<>();
 		for (Integer coin : coinMap.keySet()) {
-			setReturnCoinMapByCoin(restCoin, coinMap, returnCoinMap, coin);
+			restCoin = setReturnCoinMapByCoinAndReturnRestCoin(restCoin, coinMap, returnCoinMap, coin);
 		}
 		return returnCoinMap;
 	}
 
-	private void setReturnCoinMapByCoin(Integer restCoin, Map<Integer, Integer> coinMap,
+	private Integer setReturnCoinMapByCoinAndReturnRestCoin(Integer restCoin, Map<Integer, Integer> coinMap,
 		Map<Integer, Integer> returnCoinMap, Integer coin) {
-		while (restCoin >= coin && coinMap.get(coin) > 0) {
-			coinMap.replace(coin, coinMap.get(coin) - 1);
+		while (isPossibleReturnCoin(restCoin, coin, coinMap.get(coin))) {
 			restCoin -= coin;
-			if (!returnCoinMap.containsKey(coin)) {
-				returnCoinMap.put(coin, 1);
-				continue;
-			}
-			returnCoinMap.replace(coin, returnCoinMap.get(coin) + 1);
+			coinMap.replace(coin, coinMap.get(coin) - 1);
+			addValueInReturnMap(returnCoinMap, coin);
 		}
+		return restCoin;
+	}
+
+	private void addValueInReturnMap(Map<Integer, Integer> map, Integer key) {
+		if (!map.containsKey(key)) {
+			map.put(key, 1);
+			return;
+		}
+		map.replace(key, map.get(key) + 1);
+	}
+
+	private Boolean isPossibleReturnCoin(final int restCoin, final int coin, final int count) {
+		return restCoin >= coin && count > 0;
 	}
 }

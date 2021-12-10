@@ -30,8 +30,8 @@ public class MachineService {
 		return machine.getInputCoins();
 	}
 
-	public Map<Integer, Integer> getRestInputCoin(Machine machine) {
-		return machine.getRestInputCoin();
+	public Map<Integer, Integer> getReturnInputCoin(Machine machine) {
+		return machine.getReturnInputCoin();
 	}
 
 	public Boolean isPossiblePurchase(Machine machine) {
