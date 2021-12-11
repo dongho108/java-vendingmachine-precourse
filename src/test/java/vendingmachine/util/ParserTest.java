@@ -15,11 +15,8 @@ class ParserTest {
 	private static final String ERROR_MESSAGE = "[ERROR]";
 
 	@Test
-	public void 상품정상입력파싱() throws Exception {
-		//given
+	public void 상품정상입력파싱() {
 		List<Item> itemList = parser.parseItemInput("[콜라,1500,20];[사이다,1000,10]");
-		//when
-		//then
 		Assertions.assertThat("콜라").isEqualTo(itemList.get(0).getName());
 		Assertions.assertThat(1500).isEqualTo(itemList.get(0).getPrice());
 		Assertions.assertThat(20).isEqualTo(itemList.get(0).getQuantity());
