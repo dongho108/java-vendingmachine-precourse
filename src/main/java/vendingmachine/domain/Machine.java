@@ -43,9 +43,7 @@ public class Machine {
 	}
 
 	public Boolean isPossiblePurchase() {
-		if (checkInputCoins())
-			return false;
-		return checkItemsSoldOut();
+		return checkItemsPossiblePurchase() && isInputCoinPossiblePurchase();
 	}
 
 	public boolean isItemIn(String itemName) {
@@ -74,17 +72,17 @@ public class Machine {
 		this.inputCoins -= price;
 	}
 
-	private boolean checkItemsSoldOut() {
+	private boolean checkItemsPossiblePurchase() {
 		for (Item item : items) {
-			if (!item.isSoldOut()) {
+			if (!item.isSoldOut() && isPossiblePurchaseItem(item)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private boolean checkInputCoins() {
-		return inputCoins < minItemPrice;
+	private boolean isInputCoinPossiblePurchase() {
+		return inputCoins >= minItemPrice;
 	}
 
 	private void setMinItemPrice(List<Item> items) {
