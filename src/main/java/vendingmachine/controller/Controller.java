@@ -37,70 +37,70 @@ public class Controller {
 		while (machineService.isPossiblePurchase(machine)) {
 			OutputView.printInputCoin(machineService.getInputCoin(machine));
 			InputView.requestPurchaseItem();
-			purchaseItem(machine);
+			purchaseItemAndPrintException(machine);
 		}
 	}
 
 	private void inputCoinsByUser(Machine machine) {
 		InputView.requestInputCoin();
-		machineService.addInputCoins(machine, getInputCoin());
+		machineService.addInputCoins(machine, getInputCoinAndPrintException());
 	}
 
 	private void setMachineItems(Machine machine) {
 		InputView.requestMachineItem();
-		machine.addItems(getItemList());
+		machine.addItems(getItemListAndPrintException());
 	}
 
 	private void getUserInputAndSetMachineCoin(Machine machine) {
 		InputView.requestMachineCoin();
-		setMachineCoin(machine);
+		setMachineCoinAndPrintException(machine);
 		OutputView.printHeadMachineCoin();
 		OutputView.printMachineCoin(machineService.getMachineCoin(machine));
 	}
 
-	private void purchaseItem(Machine machine) {
+	private void purchaseItemAndPrintException(Machine machine) {
 		try {
 			machineService.purchaseItem(machine, Console.readLine());
 		} catch (IllegalArgumentException e) {
 			OutputView.printExceptionMessage(e.getMessage());
-			purchaseItem(machine);
+			purchaseItemAndPrintException(machine);
 		}
 	}
 
-	private Integer getInputCoin() {
+	private Integer getInputCoinAndPrintException() {
 		try {
 			return parser.convertStringToInt(Console.readLine());
 		} catch (IllegalArgumentException e) {
 			OutputView.printExceptionMessage(e.getMessage());
-			return getInputCoin();
+			return getInputCoinAndPrintException();
 		}
 	}
 
-	private List<Item> getItemList() {
+	private List<Item> getItemListAndPrintException() {
 		try {
 			return parser.parseItemInput(Console.readLine());
 		} catch (IllegalArgumentException e) {
 			OutputView.printExceptionMessage(e.getMessage());
-			return getItemList();
+			return getItemListAndPrintException();
 		}
 	}
 
-	private void setMachineCoin(Machine machine) {
-		Integer machineCoin = getMachineCoin();
+	private void setMachineCoinAndPrintException(Machine machine) {
+		Integer machineCoin = getMachineCoinAndPrintException();
 		try {
 			machineService.addCoins(machine, machineCoin);
 		} catch (IllegalArgumentException e) {
 			OutputView.printExceptionMessage(e.getMessage());
-			setMachineCoin(machine);
+			setMachineCoinAndPrintException(machine);
 		}
 	}
 
-	private Integer getMachineCoin() {
+	private Integer getMachineCoinAndPrintException() {
 		try {
 			return parser.convertStringToInt(Console.readLine());
 		} catch (IllegalArgumentException e) {
 			OutputView.printExceptionMessage(e.getMessage());
-			return getMachineCoin();
+			return getMachineCoinAndPrintException();
 		}
 	}
 }
